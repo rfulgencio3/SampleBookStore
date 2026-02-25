@@ -17,8 +17,11 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
-app.MapGet("/", () => Results.Redirect("/swagger"));
+app.UseSwaggerUI(c =>
+{
+    c.RoutePrefix = "";
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SampleBookStoreApi v1");
+});
 
 // Seed (opcional, para testar rapidamente)
 using (var scope = app.Services.CreateScope())
